@@ -6,6 +6,7 @@ import { useShoppingCart } from '../context/ShoppingCartContext';
 const BookDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [book, setBook] = useState<any>(null);
+    const [quantity, setQuantity] = useState(1); // Store the quantity
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const { isAuthenticated } = useAuth(); // Access the authentication state
@@ -47,7 +48,10 @@ const BookDetail: React.FC = () => {
     const handleBuyNow = () => {
         if (isAuthenticated) {
             // If user is logged in, navigate to the checkout page with book info
-            navigate('/checkout', { state: { book } });
+            if (book) {
+                // Pass book details and quantity to the Checkout page via navigation state
+                navigate('/checkout', { state: { book, quantity } });
+            }
         } else {
             // If not logged in, navigate to login page with redirection back to this page
             navigate('/login', { state: { redirectTo: `/book-detail/${id}` } });
@@ -88,15 +92,19 @@ const BookDetail: React.FC = () => {
                     <div className="book-detail__actions">
                         <div className="book-detail__quantity">
                             <label htmlFor="quantity">Quantity: </label>
-                            <select id="quantity" defaultValue="1">
+                            <select
+                                id="quantity"
+                                value={quantity}
+                                onChange={(e) => setQuantity(Number(e.target.value))}
+                            >
                                 {[...Array(10).keys()].map(i => (
                                     <option key={i} value={i + 1}>{i + 1}</option>
                                 ))}
                             </select>
                         </div>
                         <button className="book-detail__add-to-cart" onClick={handleAddToCart}>
-            Add to Cart
-        </button>
+                            Add to Cart
+                        </button>
                         <button className="book-detail__favorite">
                             <span role="img" aria-label="heart">❤️</span>
                         </button>
