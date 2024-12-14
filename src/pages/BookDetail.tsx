@@ -54,8 +54,28 @@ const BookDetail: React.FC = () => {
                         <span className="book-detail__rating-value">{book.rating} stars</span> ({book.reviews} reviews)
                     </div>
 
+                    {/* Horizontal line under rating */}
+                    <hr className="book-detail__separator" />
+
+                    {/* Row with quantity, add to cart, and favorite heart */}
+                    <div className="book-detail__actions">
+                        <div className="book-detail__quantity">
+                            <label htmlFor="quantity">Quantity: </label>
+                            <select id="quantity" defaultValue="1">
+                                {[...Array(10).keys()].map(i => (
+                                    <option key={i} value={i + 1}>{i + 1}</option>
+                                ))}
+                            </select>
+                        </div>
+                        <button className="book-detail__add-to-cart">Add to Cart</button>
+                        <button className="book-detail__favorite">
+                            <span role="img" aria-label="heart">❤️</span>
+                        </button>
+                    </div>
                 </div>
             </div>
+
+            {/* Book description */}
             <div>
                 <h3>Overview</h3>
                 <p className="book-detail__description">{book.description}</p>
