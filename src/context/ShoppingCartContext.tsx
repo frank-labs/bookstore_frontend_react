@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 interface CartItem {
     id: string;
@@ -22,7 +22,16 @@ interface ShoppingCartContextProps {
 const ShoppingCartContext = createContext<ShoppingCartContextProps | undefined>(undefined);
 
 export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [cart, setCart] = useState<CartItem[]>([]);
+    // Initialize state from localStorage or use an empty array
+    const [cart, setCart] = useState<CartItem[]>(() => {
+        const storedCart = localStorage.getItem('shoppingCart');
+        return storedCart ? JSON.parse(storedCart) : [];
+    });
+
+    // Persist cart state to localStorage whenever it changes
+    useEffect(() => {
+        localStorage.setItem('shoppingCart', JSON.stringify(cart));
+    }, [cart]);
 
     const addToCart = (item: CartItem) => {
         setCart((prevCart) => {
