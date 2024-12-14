@@ -1,0 +1,72 @@
+/* Navbar container */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+  }
+  
+  /* Navbar left side */
+  .navbar__left a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    margin-right: 20px;
+  }
+  
+  /* Navbar right side */
+  .navbar__right {
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Authentication links */
+  .navbar__auth-links a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 1.1rem;
+  }
+  
+  .navbar__auth-links a:hover {
+    color: #f1f1f1;
+  }
+  
+  /* Profile icon and dropdown menu */
+  .navbar__profile {
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .navbar__user-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+  }
+  
+  .navbar__dropdown {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: #444;
+    padding: 10px;
+    border-radius: 5px;
+    min-width: 150px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .navbar__dropdown a {
+    color: white;
+    text-decoration: none;
+    margin: 5px 0;
+    font-size: 1rem;
+  }
+  
+  .navbar__dropdown a:hover {
+    color: #f1f1f1;
+  }
+  
