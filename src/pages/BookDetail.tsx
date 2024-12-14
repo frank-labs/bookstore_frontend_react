@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext'; // Import the AuthContext
 import './bookDetail.css';
 
 const BookDetail: React.FC = () => {
-    const { id } = useParams<{ id: string }>(); // Get the book ID from the URL
-    const [book, setBook] = useState<any>(null); // Store the book data
-    const [loading, setLoading] = useState<boolean>(true); // Track loading state
-    const [error, setError] = useState<string | null>(null); // Track any errors
+    const { id } = useParams<{ id: string }>();
+    const [book, setBook] = useState<any>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
+    const { isAuthenticated } = useAuth(); // Access the authentication state
+    const navigate = useNavigate();
 
-    // Fetch book data from the API
     useEffect(() => {
         const fetchBookData = async () => {
             try {
@@ -17,31 +19,43 @@ const BookDetail: React.FC = () => {
                     throw new Error('Failed to fetch book data');
                 }
                 const data = await response.json();
-                setBook(data); // Set the book data in the state
+                setBook(data);
             } catch (err: any) {
-                setError(err.message); // Set error if fetching fails
+                setError(err.message);
             } finally {
-                setLoading(false); // Set loading to false once fetch is complete
+                setLoading(false);
             }
         };
 
         fetchBookData();
-    }, [id]); // Re-run effect when `id` changes
+    }, [id]);
+
+    // Handle "Buy Now" button click
+    const handleBuyNow = () => {
+        if (isAuthenticated) {
+            // If user is logged in, navigate to the checkout page with book info
+            navigate('/checkout', { state: { book } });
+        } else {
+            // If not logged in, navigate to login page with redirection back to this page
+            navigate('/login', { state: { redirectTo: `/books/${id}` } });
+        }
+    };
 
     if (loading) {
-        return <div>Loading...</div>; // Show loading message while data is being fetched
+        return <div>Loading...</div>;
     }
 
     if (error) {
-        return <div>Error: {error}</div>; // Show error message if fetching fails
+        return <div>Error: {error}</div>;
     }
 
     if (!book) {
-        return <div>No book found.</div>; // If no book is returned, show a message
+        return <div>No book found.</div>;
     }
 
     return (
         <div className="book-detail">
+            {/* Existing Book Detail Code */}
             <div className="book-detail__main-section">
                 <div className="book-detail__image-container">
                     <img src={book.img} alt={book.title} className="book-detail__image" />
@@ -72,6 +86,10 @@ const BookDetail: React.FC = () => {
                             <span role="img" aria-label="heart">❤️</span>
                         </button>
                     </div>
+                    {/* Add the Buy Now button */}
+                    <button className="book-detail__buy-now" onClick={handleBuyNow}>
+                        Buy Now
+                    </button>
                 </div>
             </div>
 
