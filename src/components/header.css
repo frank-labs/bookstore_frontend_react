@@ -1,0 +1,40 @@
+/* General header styling */
+.header {
+    width: 100%;
+    padding: 1rem 2rem;
+    background-color: #007bff; /* Blue background */
+    color: #fff; /* White text */
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000; /* Keep header on top */
+  }
+  
+  /* Styling the navigation links */
+  .nav {
+    display: flex;
+    justify-content: center;
+    gap: 2rem; /* Space between links */
+    font-size: 1rem;
+  }
+  
+  .nav a {
+    color: #fff;
+    text-decoration: none; /* Remove underline */
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  /* Hover effect for links */
+  .nav a:hover {
+    color: #ffc107; /* Change color on hover (yellow) */
+  }
+  
+  /* Mobile responsiveness: Stack links vertically */
+  @media (max-width: 768px) {
+    .nav {
+      flex-direction: column;
+      gap: 1rem; /* Space between links when stacked */
+    }
+  }
+  

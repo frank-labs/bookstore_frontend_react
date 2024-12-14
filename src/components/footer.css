@@ -1,0 +1,26 @@
+.footer {
+    width: 100%;
+    padding: 1rem 0;
+    background-color: #f8f9fa; /* Light gray background */
+    text-align: center;
+    border-top: 1px solid #e0e0e0; /* Subtle border at the top */
+    color: #333; /* Text color */
+    font-size: 0.9rem;
+    position: relative;
+    bottom: 0;
+  }
+  
+  .footer p {
+    margin: 0; /* Remove default margins */
+    font-weight: 400; /* Normal font weight */
+  }
+  
+  .footer a {
+    color: #007bff; /* Link color */
+    text-decoration: none; /* Remove underline from links */
+  }
+  
+  .footer a:hover {
+    text-decoration: underline; /* Add underline on hover */
+  }
+  
