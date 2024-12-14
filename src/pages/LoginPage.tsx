@@ -31,6 +31,7 @@ const LoginPage: React.FC = () => {
           id: data.id,
           username: data.username,
           email: data.email,
+          roles: data.roles,
         };
 
         // Call login function in AuthContext to update global state
