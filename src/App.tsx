@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
 import AdminDashboard from './pages/AdminDashboard';
+import BookDetail from './pages/BookDetail';
 // import LoginPage from './pages/LoginPage';
 
 const App: React.FC = () => {
@@ -14,7 +15,8 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/admin" element={<AdminDashboard />} />
-          {/* <Route path="/login" element={<LoginPage />} /> */}
+          <Route path="/book-detail/:id" element={<BookDetail />} />
+          
         </Routes>
       </main>
       <Footer />

@@ -1,16 +1,17 @@
 .book-card {
   width: 150px;  /* Same width as the image */
-  text-align: center;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   overflow: hidden;  /* To prevent overflowing content */
+  text-align: left;  /* Align content to the left */
 }
 
 .book-image {
   width: 100%;
   height: 225px;  /* Fixed height */
   object-fit: cover;  /* Ensures images scale correctly */
+  cursor: pointer;
 }
 
 .book-info {
@@ -37,6 +38,11 @@
   white-space: nowrap;  /* Ensure one line for author */
 }
 
-.view-details:hover {
-  background-color: #0056b3;
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover .book-title {
+  text-decoration: underline;
 }
