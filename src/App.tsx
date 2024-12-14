@@ -9,7 +9,7 @@ import BookDetail from './pages/BookDetail';
 import LoginPage from './pages/LoginPage';
 import ProfilePage from './pages/ProfilePage';
 import CheckoutPage from './pages/CheckoutPage';
-
+import ShoppingCartPage from './pages/ShoppingCartPage';
 const App: React.FC = () => {
   return (
     <Router>
@@ -22,6 +22,7 @@ const App: React.FC = () => {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/checkout" element={<CheckoutPage />}/>
+          <Route path="/cart" element={<ShoppingCartPage />} />
         </Routes>
       </main>
       <Footer />

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext'; // Import the AuthContext
 import './bookDetail.css';
-
+import { useShoppingCart } from '../context/ShoppingCartContext';
 const BookDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [book, setBook] = useState<any>(null);
@@ -10,7 +10,20 @@ const BookDetail: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const { isAuthenticated } = useAuth(); // Access the authentication state
     const navigate = useNavigate();
-
+    const { addToCart } = useShoppingCart();
+    const handleAddToCart = () => {
+        const cartItem = {
+            id: book.id,
+            title: book.title,
+            author: book.author,
+            price: book.price,
+            img: book.img,
+            quantity: 1, // Default quantity
+            isChecked: true, // Default to checked for checkout
+        };
+        addToCart(cartItem);
+        alert(`${book.title} added to cart!`);
+    };
     useEffect(() => {
         const fetchBookData = async () => {
             try {
@@ -81,7 +94,9 @@ const BookDetail: React.FC = () => {
                                 ))}
                             </select>
                         </div>
-                        <button className="book-detail__add-to-cart">Add to Cart</button>
+                        <button className="book-detail__add-to-cart" onClick={handleAddToCart}>
+            Add to Cart
+        </button>
                         <button className="book-detail__favorite">
                             <span role="img" aria-label="heart">❤️</span>
                         </button>
