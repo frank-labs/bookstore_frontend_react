@@ -8,6 +8,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import BookDetail from './pages/BookDetail';
 import LoginPage from './pages/LoginPage';
 import ProfilePage from './pages/ProfilePage';
+import CheckoutPage from './pages/CheckoutPage';
 
 const App: React.FC = () => {
   return (
@@ -20,6 +21,7 @@ const App: React.FC = () => {
           <Route path="/book-detail/:id" element={<BookDetail />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/checkout" element={<CheckoutPage />}/>
         </Routes>
       </main>
       <Footer />

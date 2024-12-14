@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useLocation,useNavigate } from "react-router-dom";
 import { useAuth } from '../context/AuthContext'; // Import AuthContext
 import "./LoginPage.css";
 
@@ -11,7 +11,8 @@ const LoginPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const { login } = useAuth(); // Access login from context
   const navigate = useNavigate();
-
+  const location = useLocation();
+  const redirectTo = location.state?.redirectTo || '/'; // Default to homepage if no redirectTo is provided
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -37,8 +38,8 @@ const LoginPage: React.FC = () => {
         // Call login function in AuthContext to update global state
         login(user);
 
-        // Redirect to home or another page after successful login
-        navigate('/');
+        // Redirect to the intended page
+        navigate(redirectTo);
       } else {
         throw new Error('Login failed');
       }

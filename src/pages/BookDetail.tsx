@@ -37,7 +37,7 @@ const BookDetail: React.FC = () => {
             navigate('/checkout', { state: { book } });
         } else {
             // If not logged in, navigate to login page with redirection back to this page
-            navigate('/login', { state: { redirectTo: `/books/${id}` } });
+            navigate('/login', { state: { redirectTo: `/book-detail/${id}` } });
         }
     };
 
