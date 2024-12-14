@@ -1,67 +1,70 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from '../context/AuthContext'; // Import AuthContext
 import "./LoginPage.css";
 
+
 const LoginPage: React.FC = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const { login } = useAuth(); // Access login from context
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     try {
-      // Send login request
-      const response = await axios.post(
-        "http://localhost:8080/api/auth/signin",
-        { username, password },
-        {
-          withCredentials: true, // Important! This tells Axios to include cookies in the request/response
-        }
-      );
+      // Call the backend login API using Axios
+      const response = await axios.post('http://localhost:8080/api/auth/signin', {
+        username,
+        password,
+      }, {
+        withCredentials: true, // Important for including the HTTP-only cookie
+      });
 
-      // Check if login was successful
       if (response.status === 200) {
-        console.log("Logged in successfully!");
-        navigate("/"); // Redirect to the home page or dashboard
+        const data = response.data;
+
+        // Store user information in localStorage
+        const user = {
+          id: data.id,
+          username: data.username,
+          email: data.email,
+        };
+
+        // Call login function in AuthContext to update global state
+        login(user);
+
+        // Redirect to home or another page after successful login
+        navigate('/');
+      } else {
+        throw new Error('Login failed');
       }
-    } catch (err: any) {
-      // Handle error
-      setError(err.response?.data?.message || "An error occurred during login.");
+    } catch (err) {
+      setError('Invalid credentials');
     }
   };
 
   return (
-    <div className="login-page">
+    <div>
       <h1>Login</h1>
-      <form onSubmit={handleSubmit} className="login-form">
-        <div className="form-group">
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit" className="login-button">
-          Login
-        </button>
-        {error && <p className="error-message">{error}</p>}
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button type="submit">Login</button>
       </form>
+      {error && <p>{error}</p>}
     </div>
   );
 };

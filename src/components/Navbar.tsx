@@ -4,14 +4,10 @@ import userIcon from "../assets/react.svg"; // User profile image from assets (c
 import { useAuth } from "../context/AuthContext"; 
 
 const Navbar = () => {
+  const { isAuthenticated, user, logout } = useAuth(); // Access AuthContext
+  const [showDropdown, setShowDropdown] = React.useState(false);
 
-
-  const { isAuthenticated, logout } = useAuth(); // Access authentication state and logout function
-  const [showDropdown, setShowDropdown] = useState(false); // To toggle the dropdown visibility
-  // Handle the dropdown visibility
-  const toggleDropdown = () => {
-    setShowDropdown((prev) => !prev);
-  };
+  const toggleDropdown = () => setShowDropdown(!showDropdown);
 
   return (
     <nav className="navbar">
@@ -37,9 +33,7 @@ const Navbar = () => {
               <div className="navbar__dropdown">
                 <a href="/profile">Profile</a>
                 <a href="/orders">My Orders</a>
-                <a href="/logout" onClick={logout}>
-                  Logout
-                </a>
+                <a href="/logout" onClick={logout}>Logout</a>
               </div>
             )}
           </div>
