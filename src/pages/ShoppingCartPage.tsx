@@ -1,10 +1,11 @@
 import React from 'react';
 import { useShoppingCart } from '../context/ShoppingCartContext';
+import { useNavigate  } from "react-router-dom";
 import './ShoppingCartPage.css';
 
 const ShoppingCartPage: React.FC = () => {
     const { cart, updateQuantity, removeFromCart, toggleItem } = useShoppingCart();
-
+    const navigate = useNavigate();
     const handleQuantityChange = (id: string, quantity: number) => {
         if (quantity <= 0) {
             removeFromCart(id);
@@ -12,11 +13,19 @@ const ShoppingCartPage: React.FC = () => {
             updateQuantity(id, quantity);
         }
     };
-
+    const handleCheckout = () => {
+        navigate("/checkout"); // Navigate to the checkout page
+      };
     const total = cart.reduce(
         (sum, item) => (item.isChecked ? sum + item.price * item.quantity : sum),
         0
     );
+    const totalPrice = cart
+    .filter(item => item.isChecked) // Only count checked items
+    .reduce((total, item) => total + item.price * item.quantity, 0);
+
+const tax = totalPrice * 0.13; // 13% tax
+const finalTotal = totalPrice + tax;
 
     return (
         <div className="shopping-cart">
@@ -71,15 +80,14 @@ const ShoppingCartPage: React.FC = () => {
                             ))}
                         </tbody>
                     </table>
-                    <div className="shopping-cart__summary">
-                        <h2>Total: ${total.toFixed(2)}</h2>
-                        <button
-                            className="shopping-cart__checkout"
-                            onClick={() => alert('Proceeding to checkout...')}
-                        >
-                            Checkout
-                        </button>
-                    </div>
+                    <div className="cart-summary">
+                <p>Total: ${totalPrice.toFixed(2)}</p>
+                <p>Tax (13%): ${tax.toFixed(2)}</p>
+                <p>Final Total: ${finalTotal.toFixed(2)}</p>
+                <button onClick={handleCheckout} disabled={finalTotal === 0}>
+                    Proceed to Checkout
+                </button>
+            </div>
                 </>
             )}
         </div>

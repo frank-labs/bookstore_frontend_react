@@ -38,3 +38,21 @@
 .shopping-cart__checkout:hover {
     background-color: #45a049;
 }
+
+.cart-summary {
+    margin-top: 20px;
+}
+
+.cart-summary button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.cart-summary button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}

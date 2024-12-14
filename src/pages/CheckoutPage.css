@@ -1,0 +1,39 @@
+.checkout-page {
+    padding: 20px;
+}
+
+.checkout-items {
+    display: flex;
+    flex-direction: column;
+}
+
+.checkout-item {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.checkout-item img {
+    width: 100px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.checkout-price {
+    margin-top: 20px;
+}
+
+.payment-form {
+    margin-top: 20px;
+}
+
+.payment-form input {
+    margin: 5px 0;
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px;
+   
