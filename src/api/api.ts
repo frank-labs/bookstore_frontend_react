@@ -28,4 +28,15 @@ export const getBooks = async (page: number) => {
       throw error;
   }
 };
+
+export const getMyBooks = async (page: number) => {
+    try {
+      const response = await api.get(`/mybook?page=${page}`);
+      return response.data; // Assuming { books, totalPages, currentPage } structure
+    } catch (error) {
+      console.error('Error fetching my books:', error);
+      throw error;
+    }
+  };
+  
 export default api;

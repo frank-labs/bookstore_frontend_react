@@ -10,6 +10,7 @@ import LoginPage from './pages/LoginPage';
 import ProfilePage from './pages/ProfilePage';
 import CheckoutPage from './pages/CheckoutPage';
 import ShoppingCartPage from './pages/ShoppingCartPage';
+import MyBooksPage from './pages/MyBooksPage';
 const App: React.FC = () => {
   return (
     <Router>
@@ -23,6 +24,7 @@ const App: React.FC = () => {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/checkout" element={<CheckoutPage />}/>
           <Route path="/cart" element={<ShoppingCartPage />} />
+          <Route path="/mybook" element={<MyBooksPage />} />
         </Routes>
       </main>
       <Footer />

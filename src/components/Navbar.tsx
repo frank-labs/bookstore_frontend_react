@@ -33,6 +33,7 @@ const Navbar = () => {
             {showDropdown && (
               <div className="navbar__dropdown">
                 <a href="/profile">Profile</a>
+                <a href="/mybook">Boutht Books</a>
                 <a href="/orders">My Orders</a>
                 <a href="/logout" onClick={logout}>Logout</a>
               </div>

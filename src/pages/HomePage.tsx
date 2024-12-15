@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import BookCard from '../components/BookCard';
-import { getBooks } from '../api/api';
 import './HomePage.css';
 
 interface Book {
@@ -20,7 +18,12 @@ interface Book {
   price: number;
 }
 
-const HomePage: React.FC = () => {
+interface HomePageProps {
+  title: string; // Page title
+  fetchData: (page: number) => Promise<{ books: Book[]; totalPages: number; currentPage: number }>;
+}
+
+const HomePage: React.FC<HomePageProps> = ({ title, fetchData }) => {
   const [books, setBooks] = useState<Book[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(0);
@@ -30,8 +33,7 @@ const HomePage: React.FC = () => {
   const fetchBooks = async (page: number) => {
     setLoading(true);
     try {
-      const data = await getBooks(page); // Use API function
-      
+      const data = await fetchData(page); // Use the passed fetchData function
       setBooks(data.books); // Set books data
       setTotalPages(data.totalPages); // Set total pages for pagination
       setCurrentPage(data.currentPage); // Set the current page
@@ -49,7 +51,7 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="home-page">
-      <h1>Bookstore</h1>
+      <h1>{title}</h1>
 
       {/* Loading state */}
       {loading ? <p>Loading...</p> : null}
@@ -64,14 +66,16 @@ const HomePage: React.FC = () => {
       {/* Pagination */}
       <div className="pagination">
         <button
-          onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
           disabled={currentPage <= 1}
         >
           Previous
         </button>
-        <span>{currentPage} of {totalPages}</span>
+        <span>
+          {currentPage} of {totalPages}
+        </span>
         <button
-          onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
           disabled={currentPage >= totalPages}
         >
           Next
