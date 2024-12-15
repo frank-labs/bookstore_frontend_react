@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import BookCard from '../components/BookCard';
+import { getBooks } from '../api/api';
 import './HomePage.css';
 
 interface Book {
@@ -28,8 +30,7 @@ const HomePage: React.FC = () => {
   const fetchBooks = async (page: number) => {
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:8080/api/books?page=${page}`);
-      const data = await response.json();
+      const data = await getBooks(page); // Use API function
       
       setBooks(data.books); // Set books data
       setTotalPages(data.totalPages); // Set total pages for pagination
