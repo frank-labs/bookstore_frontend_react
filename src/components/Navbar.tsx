@@ -13,6 +13,7 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="navbar__left">
         <a href="/">Home</a>
+        <a href="/cart">Cart</a>
       </div>
       <div className="navbar__right">
         {/* Conditional rendering based on authentication */}
