@@ -9,6 +9,9 @@ const Navbar = () => {
 
   const toggleDropdown = () => setShowDropdown(!showDropdown);
 
+  // Check if user has the "ROLE_ADMIN" role
+  const isAdmin = user?.roles?.includes("ROLE_ADMIN");
+
   return (
     <nav className="navbar">
       <div className="navbar__left">
@@ -33,8 +36,10 @@ const Navbar = () => {
             {showDropdown && (
               <div className="navbar__dropdown">
                 <a href="/profile">Profile</a>
-                <a href="/mybook">Boutht Books</a>
+                <a href="/mybook">Bought Books</a>
                 <a href="/orders">My Orders</a>
+                {/* Show "Admin" button only if the user has the "ROLE_ADMIN" */}
+                {isAdmin && <a href="/admin">Admin</a>}
                 <a href="/logout" onClick={logout}>Logout</a>
               </div>
             )}

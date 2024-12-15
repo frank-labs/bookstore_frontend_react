@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import BookCard from '../components/BookCard';
+import { getBooks } from '../api/api';
 import './HomePage.css';
 
 interface Book {
@@ -33,7 +34,7 @@ const HomePage: React.FC<HomePageProps> = ({ title, fetchData }) => {
   const fetchBooks = async (page: number) => {
     setLoading(true);
     try {
-      const data = await fetchData(page); // Use the passed fetchData function
+      const data = await getBooks(page); // Use the passed fetchData function
       setBooks(data.books); // Set books data
       setTotalPages(data.totalPages); // Set total pages for pagination
       setCurrentPage(data.currentPage); // Set the current page
