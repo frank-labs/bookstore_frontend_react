@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Navbar.css"; // Assuming you are using this file for navbar styling
 import userIcon from "../assets/react.svg"; // User profile image from assets (can be replaced with any image)
-import { useAuth } from "../context/AuthContext"; 
+import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
   const { isAuthenticated, user, logout } = useAuth(); // Access AuthContext
@@ -17,6 +17,7 @@ const Navbar = () => {
       <div className="navbar__left">
         <a href="/">Home</a>
         <a href="/cart">Cart</a>
+        {isAdmin && <a href="/admin">Admin</a>}
       </div>
       <div className="navbar__right">
         {/* Conditional rendering based on authentication */}
@@ -38,7 +39,6 @@ const Navbar = () => {
                 <a href="/profile">Profile</a>
                 <a href="/mybook">Bought Books</a>
                 <a href="/orders">My Orders</a>
-                {/* Show "Admin" button only if the user has the "ROLE_ADMIN" */}
                 {isAdmin && <a href="/admin">Admin</a>}
                 <a href="/logout" onClick={logout}>Logout</a>
               </div>
